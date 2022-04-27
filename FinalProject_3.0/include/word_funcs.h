@@ -33,7 +33,7 @@ int partition(VECTOR<Word>& section, int lo, int hi, bool by_info);
 void quicksort(VECTOR<Word>& tobeSorted, int lo, int hi, bool by_info);
 
 // initializing the letter map
-int init_letter_map( UNOR_MAP< char, VECTOR<Color> >& letter_map );
+void init_letter_map( UNOR_MAP< char, VECTOR<Color> >& letter_map );
 
 // reading a file and putting the words into a vector
 int read_file(VECTOR<Word>& the_words);
@@ -55,5 +55,8 @@ VECTOR<Word> find_words(const UNOR_MAP< char, VECTOR<Color> > letter_map, VECTOR
 
 // displays the words to the user in a ranked order
 int display_words(VECTOR<Word>& the_words, int num_tries);
+
+// used by display_words to sort the words in ranked order
+void sort_words (VECTOR<Word>& the_words, int num_tries);
 
 #endif

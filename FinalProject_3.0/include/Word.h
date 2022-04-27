@@ -41,7 +41,7 @@ typedef struct Word {
 		Word(STRING string_in, UNOR_MAP< STRING, int > the_map) : string(string_in) {
 
 			// finding the info rank of a word
-			double the_score = 0;
+			double the_score = 10.28*5;
 
 			// vector to keep track of what words we have encountered
 			SET<char> the_letters;
@@ -56,107 +56,107 @@ typedef struct Word {
 					switch(tolower(x)) {
 
 						case 'a':
-							the_score += 9.24;
+							the_score -= 9.24;
 							break;
 
 						case 'b':
-							the_score += 2.51;
+							the_score -= 2.51;
 							break;
 
 						case 'c':
-							the_score += 3.12;
+							the_score -= 3.12;
 							break;
 
 						case 'd':
-							the_score += 3.78;
+							the_score -= 3.78;
 							break;
 
 						case 'e':
-							the_score += 10.28;
+							the_score -= 10.28;
 							break;
 
 						case 'f':
-							the_score += 1.72;
+							the_score -= 1.72;
 							break;
 
 						case 'g':
-							the_score += 2.53;
+							the_score -= 2.53;
 							break;
 
 						case 'h':
-							the_score += 2.71;
+							the_score -= 2.71;
 							break;
 
 						case 'i':
-							the_score += 5.8;
+							the_score -= 5.8;
 							break;
 
 						case 'j':
-							the_score += 0.45;
+							the_score -= 0.45;
 							break;
 
 						case 'k':
-							the_score += 2.31;
+							the_score -= 2.31;
 							break;
 
 						case 'l':
-							the_score += 5.2;
+							the_score -= 5.2;
 							break;
 
 						case 'm':
-							the_score += 3.05;
+							the_score -= 3.05;
 							break;
 
 						case 'n':
-							the_score += 4.55;
+							the_score -= 4.55;
 							break;
 
 						case 'o':
-							the_score += 6.84;
+							the_score -= 6.84;
 							break;
 
 						case 'p':
-							the_score += 3.11;
+							the_score -= 3.11;
 							break;
 
 						case 'q':
-							the_score += 0.17;
+							the_score -= 0.17;
 							break;
 
 						case 'r':
-							the_score += 6.42;
+							the_score -= 6.42;
 							break;
 
 						case 's':
-							the_score += 10.27;
+							the_score -= 10.27;
 							break;
 
 						case 't':
-							the_score += 5.09;
+							the_score -= 5.09;
 							break;
 
 						case 'u':
-							the_score += 3.87;
+							the_score -= 3.87;
 							break;
 
 						case 'v':
-							the_score += 1.07;
+							the_score -= 1.07;
 							break;
 
 						case 'w':
-							the_score += 1.6;
+							the_score -= 1.6;
 							break;
 
 						case 'x':
-							the_score += 0.44;
+							the_score -= 0.44;
 							break;
 	
 						case 'y':
-							the_score += 3.2;
+							the_score -= 3.2;
 							break;
 
 						case 'z':
-							the_score += 0.67;
+							the_score -= 0.67;
 							break;
 
 					}

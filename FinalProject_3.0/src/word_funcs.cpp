@@ -101,7 +101,13 @@ int read_file(VECTOR<Word>& the_words)
 {
 	// first read common words and create the unordered map
 	IFSTREAM infile0;
-	infile0.open("common-words.txt");
+	char comm_name[20] = "common-words.txt";
+	infile0.open(comm_name);
+
+	if (infile0.fail()) {
+		CERR << "Could not open " << comm_name << ENDL;
+		return -1;
+	}
 
 	// our file reader, iterator, and unordered map
 	int iter = 0;
@@ -123,7 +129,13 @@ int read_file(VECTOR<Word>& the_words)
 
 	// declaring filestream
 	IFSTREAM infile;
-	infile.open("info-words.txt");
+	char info_name[20] = "info-words.txt";
+	infile.open(info_name);
+
+	if (infile.fail()) {
+		CERR << "Could not open " << info_name << ENDL;
+		return -1;
+	}
 
 	// while loop to read file
 	while (infile >> reader) {
@@ -145,7 +157,7 @@ int read_file(VECTOR<Word>& the_words)
 
 
 // initializes the letter map
-int init_letter_map(UNOR_MAP<char, VECTOR<Color> >& letter_map)
+void init_letter_map(UNOR_MAP<char, VECTOR<Color> >& letter_map)
 {
 
 	int ascii_A = 97;
@@ -160,7 +172,7 @@ int init_letter_map(UNOR_MAP<char, VECTOR<Color> >& letter_map)
 
 	}
 
-	return 0;
+	return;
 }
 
 
@@ -254,6 +266,17 @@ int get_colors(STRING &colors) {
 // updates the letter map with the info from the user's guess
 int update_letter_map(STRING word, STRING colors, UNOR_MAP<char, VECTOR<Color> > &letter_map) {
 
+	int ascii_A = 97;
+	int ascii_Z = 122;
+
+	VECTOR<Color> pos_colors(5, NAN);
+
+	// go through all of the lowercase letters
+	for (int letter = ascii_A; letter <= ascii_Z; letter++) {
+
+		letter_map[(char)letter] = pos_colors;
+	}
+
 	// fixing word and colors to all be lowercase
 	for (size_t i=0; i<word.length(); i++) {
 		word[i] = (char)tolower(word[i]);
@@ -283,6 +306,9 @@ int update_letter_map(STRING word, STRING colors, UNOR_MAP<char, VECTOR<Color> >
 				letter_map[word.at(iter)].at(iter) = GREEN;
 				g_y_letters.push_back(word.at(iter));
 				break;
+
+			default:
+				return -1;
 		}
 	}
 
@@ -466,47 +492,50 @@ VECTOR<Word> find_words(UNOR_MAP< char, VECTOR<Color> > letter_map, VECTOR<Word>
 int display_words(VECTOR<Word>& the_words, int num_tries)
 {
 
+	int ret_val = 0;
+
 	COUT << ENDL;
 
 	// if there are no possible words
 	if (the_words.size() == 0) {
 		COUT << "No possible words." << ENDL << ENDL;
+		return -1;
+	}
+
+	if (num_tries == 5) {
+		COUT << "Last try:" << ENDL;
+		ret_val = 1;
+	}
+
+	// if one possible word, puzzle is solved
+	if (the_words.size() == 1) {
+		COUT << "Solved! Your answer is: " << the_words.at(0).string << ENDL << ENDL;
 		return 1;
 	}
 
 	// sorting the words depending if on by info or by commonality
-	if (num_tries > 2) {
+	sort_words(the_words, num_tries);
 
-		// quicksort by commonality
-		quicksort(the_words, 0, (int)the_words.size()-1, false);
+	// displaying the words
+	for (unsigned int i=1; ( i<=the_words.size() && i <= 10); i++) {
 
-		// displaying the words
-		for (unsigned int i=1; i<=the_words.size(); i++) {
-
-			COUT << i << ": " << the_words[i-1].string << ENDL;
-
-			// only want to display first 10 words, so break here
-			if (i == 10) break;
-
-		}
-
-	} else {
-
-		// quicksort by info
-		quicksort(the_words, 0, (int)the_words.size()-1, true);
-
-		// displaying the words
-		for (unsigned int i=1; i<=the_words.size(); i++) {
-
-			COUT << i << ": " << the_words[the_words.size()-i].string << ENDL;
-
-			// only want to display first 10 words, so break here
-			if (i == 10) break;
-
-		}
-
+		COUT << i << ": " << the_words[i-1].string << ENDL;
 
 	}
 
-	return 0;
+	return ret_val;
+}
+
+void sort_words (VECTOR<Word>& the_words, int num_tries)
+{
+
+	bool by_info = true;
+
+	if (num_tries > 2) {
+		by_info = false;
+	}
+
+	quicksort(the_words, 0, (int)the_words.size()-1, by_info);
+
+	return;
 }
